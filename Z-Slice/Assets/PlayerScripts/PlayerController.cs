@@ -2,15 +2,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private GameObject armsModel;//Tentative might remove later if not going to use it
 
-    // Update is called once per frame
     void Update()
     {
-        
+        playerMovement.HandleMove();
+        playerMovement.HandleSprint();
+        playerMovement.HandleLanding();
     }
 }
