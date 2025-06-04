@@ -18,7 +18,6 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip[] audioLand;
     [Range(0, 1)] public float audioLandVol = 0.9f;
 
-    int jumpCount;
     Vector3 moveDir;
     Vector3 playerVel;
     bool isSprinting;
@@ -28,10 +27,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void HandleMove()
     {
+        HandleJump();
+        wasGrounded = controller.isGrounded;
+
         if (controller.isGrounded)
         {
             isJumped = false;
-            jumpCount = 0;
             playerVel = Vector3.zero;
         }
 
@@ -40,7 +41,6 @@ public class PlayerMovement : MonoBehaviour
         float currentSpeed = isSprinting ? walkSpeed * sprintMultiplier : walkSpeed;
         controller.Move(moveDir * currentSpeed * Time.deltaTime);
 
-        HandleJump();
 
         controller.Move(playerVel * Time.deltaTime);
         playerVel.y -= gravity * Time.deltaTime;
@@ -59,11 +59,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void HandleJump()
     {
-        if (Input.GetButtonDown("Jump") && jumpCount < jumpMax)
+        if (Input.GetButtonDown("Jump") && wasGrounded)
         {
-            jumpCount++;
             playerVel.y = jumpForce;
             isJumped = true;
+
             if (audioJump != null && audioJump.Length > 0)
                 aud.PlayOneShot(audioJump[Random.Range(0, audioJump.Length)], audioJumpVol);
         }
@@ -76,8 +76,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (controller.isGrounded)
             isJumped = false;
-
-        wasGrounded = controller.isGrounded;
     }
 
     IEnumerator PlaySteps()

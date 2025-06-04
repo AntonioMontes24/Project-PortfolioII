@@ -9,6 +9,6 @@ public class PlayerController : MonoBehaviour
     {
         playerMovement.HandleMove();
         playerMovement.HandleSprint();
-        playerMovement.HandleLanding();
+        playerMovement.HandleLanding();    
     }
 }
