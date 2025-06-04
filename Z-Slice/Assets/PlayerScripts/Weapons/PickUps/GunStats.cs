@@ -1,13 +1,9 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
-[CreateAssetMenu]
-
-public class GunStats : MonoBehaviour
+[CreateAssetMenu(fileName = "NewGunStats", menuName = "Weapon/Gun Stats")]
+public class GunStats : ScriptableObject
 {
     [Header("Weapons Stats")]
-    //Weapon Stats
     public GameObject gunModel;
     public int shootDamage;
     public float shootRate;
@@ -16,20 +12,17 @@ public class GunStats : MonoBehaviour
     public float reloadTime;
 
     [Header("Weapon Fire Type")]
-    //Fire type
-    bool canSwitchFireMode;
-    bool isAutomaticDefault;
+    public bool canSwitchFireMode;
+    public bool isAutomaticDefault;
     public float autoFireRate;
     public float semiFireRate;
 
     [Header("VFX")]
-    //VFX
     public GameObject bulletHolePrefab;
     public ParticleSystem hitEffect;
 
     [Header("SFX")]
-    //Shoot Audio
-    public AudioClip shootSound;
+    public AudioClip[] shootSound;
     public AudioClip reloadSound;
-    public float shootVolume;
+    [Range(0, 1)] public float shootVol = 1f;
 }
