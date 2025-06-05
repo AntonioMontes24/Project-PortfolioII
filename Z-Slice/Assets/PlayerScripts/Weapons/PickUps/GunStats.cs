@@ -22,7 +22,8 @@ public class GunStats : ScriptableObject
     public ParticleSystem hitEffect;
 
     [Header("SFX")]
-    public AudioClip[] shootSound;
+    public AudioClip shootSound;
     public AudioClip reloadSound;
     [Range(0, 1)] public float shootVol = 1f;
+    public AudioClip fireModeSwitchSound;
 }
