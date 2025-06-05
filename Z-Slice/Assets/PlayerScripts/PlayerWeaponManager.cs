@@ -60,8 +60,9 @@ public class PlayerWeaponManager : MonoBehaviour
         if (gunList.Count == 0) return;
         GunStats currentGun = gunList[gunList.Count - 1];
 
-        if (currentGun.shootSound != null && currentGun.shootSound.Length > 0)
-            aud.PlayOneShot(currentGun.shootSound[Random.Range(0, currentGun.shootSound.Length)], currentGun.shootVol);
+        if (currentGun.shootSound != null)
+            aud.PlayOneShot(currentGun.shootSound, currentGun.shootVol);
+
 
         Vector3 origin = Camera.main.transform.position;
         Vector3 dir = Camera.main.transform.forward;
@@ -152,8 +153,14 @@ public class PlayerWeaponManager : MonoBehaviour
         GunStats currentGun = gunList[gunList.Count - 1];
 
         if (currentGun.canSwitchFireMode)
+        {
             isAutomaticMode = !isAutomaticMode;
+
+            if (currentGun.fireModeSwitchSound != null)
+                aud.PlayOneShot(currentGun.fireModeSwitchSound, 0.6f);
+        }
     }
+
 
     public bool HasGun()
     {
