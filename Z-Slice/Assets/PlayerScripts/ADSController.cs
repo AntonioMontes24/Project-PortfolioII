@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 [RequireComponent(typeof(Camera))]
 public class AimDownSights : MonoBehaviour
 {
@@ -14,22 +13,28 @@ public class AimDownSights : MonoBehaviour
 
     Camera cam;
     float targetFov;
+    PlayerWeaponManager weaponManager;
 
     void Awake()
     {
         cam = GetComponent<Camera>();
         cam.fieldOfView = hipFov;
         targetFov = hipFov;
+
+        weaponManager = FindObjectOfType<PlayerWeaponManager>();
     }
 
     void Update()
     {
         // decide which FOV we want this frame
-        targetFov = Input.GetKey(aimButton) ? adsFov : hipFov;
+        bool isAiming = Input.GetKey(aimButton);
+        targetFov = isAiming ? adsFov : hipFov;
 
         // smooth transition
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView,
                                      targetFov,
                                      Time.deltaTime * zoomSpeed);
+
+        weaponManager?.SetAiming(isAiming);
     }
 }

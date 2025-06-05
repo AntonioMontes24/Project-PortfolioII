@@ -17,5 +17,7 @@ public class PlayerController : MonoBehaviour
         {
             weaponManager.ToggleFireMode();
         }
+        weaponManager.SetAiming(Input.GetButton("Fire2"));
+        weaponManager.HandleADS();
     }
 }
